@@ -38,10 +38,10 @@ d3.json(skillPointData, function(error, data) {
   console.log(dataArray);
   
   
-  
   // set domain  
- // xScale.domain([0 , d3.max(data, function(d) { return d.points; })]);
- xScale.domain([0, 3452]);
+  xScale.domain([0 , d3.max(dataArray, function(d) { return d.points; })]);
+
+  
   // Set chart height dynamically
   chart.attr("height", barHeight * dataLength);
 
@@ -53,10 +53,8 @@ d3.json(skillPointData, function(error, data) {
   
  
   bar.append("rect")
-      .attr("width", function(d) { 
-      return xScale(d.points); 
-  })
-    .attr("height", barHeight - 1)
-    .attr("fill", "#30c485");
+      .attr("width", function(d) { return xScale(d.points);})
+      .attr("height", barHeight - 1)
+      .attr("fill", "#30c485");
   
 });
