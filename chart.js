@@ -1,3 +1,14 @@
+var courseColors = {
+  "Android" : "#5cb860",
+  "JavaScript" : "#c25975",
+  "CSS" : "#3079AB",
+  "Development Tools" : "#637a91",
+  "HTML" : "#39ADD1",
+  "PHP" : "#7D669E"
+};
+
+
+
 var skillPointData = "https://teamtreehouse.com/josemorales.json";
 
 // set dimensions
@@ -25,17 +36,31 @@ d3.json(skillPointData, function(error, data) {
   // iterate over API object and create an array for easier mapping later on.
   for ( var property in data.points) {
 
-    if(property === "total") continue;
+    if(property === "total" || property === "Game Development") continue;
     
     var item = {
         skillName : property,
-        points : data.points[property]
+        points : data.points[property],
+        fill : function(colors) {
+          //iterate over color object
+          // if key in object is equal to this.skillName
+            // return the value of the property
+            // break from the loop.
+          for (var course in colors) {
+            console.log(course);
+            if(course == this.skillName) {
+              return colors.course;
+              //break;
+            } else {
+              return "#c25975";
+            }
+              
+          }
+        }
     };
     
     dataArray.push(item);
   }
-  
-  console.log(dataArray);
   
   
   // set domain  
@@ -55,6 +80,17 @@ d3.json(skillPointData, function(error, data) {
   bar.append("rect")
       .attr("width", function(d) { return xScale(d.points);})
       .attr("height", barHeight - 1)
-      .attr("fill", "#30c485");
+      .attr("fill", function(d) { return d.fill(courseColors)}); 
+  
+  
+  bar.append("text")
+      .attr("x", function(d) { return xScale(d.points) - 3; })
+      .attr("y", barHeight / 2)
+      .attr("dy", ".35em")
+      .text(function(d) { return d.skillName; });
   
 });
+
+
+ 
+
