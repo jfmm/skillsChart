@@ -1,7 +1,7 @@
 var skillPointData = "https://teamtreehouse.com/josemorales.json";
 
 // set dimensions
-var width = 500,
+var width = 700,
     barHeight = 20;
 
 // set x scale
@@ -25,6 +25,8 @@ d3.json(skillPointData, function(error, data) {
   // iterate over API object and create an array for easier mapping later on.
   for ( var property in data.points) {
 
+    if(property === "total") continue;
+    
     var item = {
         skillName : property,
         points : data.points[property]
@@ -38,24 +40,23 @@ d3.json(skillPointData, function(error, data) {
   
   
   // set domain  
-  xScale.domain([0, d3.max(data, function(d) { return d.value; })]);
- 
+ // xScale.domain([0 , d3.max(data, function(d) { return d.points; })]);
+ xScale.domain([0, 3452]);
   // Set chart height dynamically
   chart.attr("height", barHeight * dataLength);
 
-  
-  //var i = 0;
+
   var bar = chart.selectAll("g")
     .data(dataArray)
     .enter().append("g")
-    // whats this
     .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; });
   
-  //TODO: ERROR HERE.
+ 
   bar.append("rect")
       .attr("width", function(d) { 
-    return xScale(d); 
+      return xScale(d.points); 
   })
-    .attr("height", barHeight - 1);
+    .attr("height", barHeight - 1)
+    .attr("fill", "#30c485");
   
 });
