@@ -1,10 +1,11 @@
 var courseColors = {
-  "Android" : "#5cb860",
+ 
   "JavaScript" : "#c25975",
   "CSS" : "#3079AB",
   "Development Tools" : "#637a91",
   "HTML" : "#39ADD1",
-  "PHP" : "#7D669E"
+  "PHP" : "#7D669E",
+   "Android" : "#5cb860"
 };
 
 
@@ -41,20 +42,18 @@ d3.json(skillPointData, function(error, data) {
     var item = {
         skillName : property,
         points : data.points[property],
-        fill : function(colors) {
+        setFill : function(colors) {
           //iterate over color object
           // if key in object is equal to this.skillName
             // return the value of the property
             // break from the loop.
           for (var course in colors) {
             console.log(course);
-            if(course == this.skillName) {
-              return colors.course;
-              //break;
-            } else {
-              return "#c25975";
-            }
-              
+           
+            if(course == this.skillName) return colors[course];
+            
+            else return "blue";
+            
           }
         }
     };
@@ -80,7 +79,9 @@ d3.json(skillPointData, function(error, data) {
   bar.append("rect")
       .attr("width", function(d) { return xScale(d.points);})
       .attr("height", barHeight - 1)
-      .attr("fill", function(d) { return d.fill(courseColors)}); 
+      .attr("fill", function(d) {
+    debugger;
+    return d.setFill(courseColors)}); 
   
   
   bar.append("text")
@@ -90,7 +91,3 @@ d3.json(skillPointData, function(error, data) {
       .text(function(d) { return d.skillName; });
   
 });
-
-
- 
-
