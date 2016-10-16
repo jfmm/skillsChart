@@ -47,14 +47,18 @@ d3.json(skillPointData, function(error, data) {
           // if key in object is equal to this.skillName
             // return the value of the property
             // break from the loop.
-          for (var course in colors) {
-            console.log(course);
-           
-            if(course == this.skillName) return colors[course];
-            
-            else return "blue";
-            
-          }
+//          for (var course in colors) {
+//            debugger;
+//            console.log(course);
+//           
+//            if(course == this.skillName) return colors[course];
+//            
+//              else return "blue";
+//            
+//          }
+          console.log(colors);
+          console.log(this);
+          
         }
     };
     
@@ -80,7 +84,7 @@ d3.json(skillPointData, function(error, data) {
       .attr("width", function(d) { return xScale(d.points);})
       .attr("height", barHeight - 1)
       .attr("fill", function(d) {
-    debugger;
+    //debugger;
     return d.setFill(courseColors)}); 
   
   
