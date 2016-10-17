@@ -5,7 +5,7 @@ var courseColors = {
   "Development Tools" : "#637a91",
   "HTML" : "#39ADD1",
   "PHP" : "#7D669E",
-   "Android" : "#5cb860"
+  "Android" : "#5cb860"
 };
 
 
@@ -43,21 +43,8 @@ d3.json(skillPointData, function(error, data) {
         skillName : property,
         points : data.points[property],
         setFill : function(colors) {
-          //iterate over color object
-          // if key in object is equal to this.skillName
-            // return the value of the property
-            // break from the loop.
-//          for (var course in colors) {
-//            debugger;
-//            console.log(course);
-//           
-//            if(course == this.skillName) return colors[course];
-//            
-//              else return "blue";
-//            
-//          }
-          console.log(colors);
-          console.log(this);
+       
+          return colors[this.skillName];
           
         }
     };
