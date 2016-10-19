@@ -20,10 +20,16 @@ var courseColors = {
 
 
 
+var removeLoader = function () {
+  console.log("doc loaded");
+  document.getElementById("loader").style.display = "none";
+  
+};
+
 var skillPointData = "https://teamtreehouse.com/josemorales.json";
 
 // set dimensions
-var width = 1700,
+var width = 600,
     barHeight = 20;
 
 // set x scale
@@ -36,6 +42,9 @@ var chart = d3.select("#chart")
 // get data
 d3.json(skillPointData, function(error, data) {
        
+  // if we get data we remove the loader image
+  if(data) removeLoader();
+  
   if(error) throw new Error("data not found");
   
   
@@ -106,3 +115,8 @@ d3.json(skillPointData, function(error, data) {
       .text(function(d) { return d.skillName; });
   
 });
+
+
+
+
+
