@@ -23,7 +23,7 @@ var courseColors = {
 var skillPointData = "https://teamtreehouse.com/josemorales.json";
 
 // set dimensions
-var width = 700,
+var width = 1700,
     barHeight = 20;
 
 // set x scale
@@ -63,7 +63,7 @@ d3.json(skillPointData, function(error, data) {
   }
   
   
-  //sort data from highest points to lowest
+  //sort dataArray from highest points to lowest
   dataArray.sort(function (a, b) {
   if (a.points < b.points) {
     return 1;
