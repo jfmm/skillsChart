@@ -5,16 +5,32 @@ var courseColors = {
   "Development Tools" : "#637a91",
   "HTML" : "#39ADD1",
   "PHP" : "#7D669E",
-  "Android" : "#5cb860"
+  "Android" : "#5cb860",
+  "WordPress": "#838CC7",
+  "Design": "#e59a13",
+  "C#": "#9e4d83",
+  "Python": "#F092B3",
+  "Databases": "#eb7728",
+  "Ruby": "#e15258",
+  "Java": "#2c9676",
+  "iOS": "#53bbb4",
+  "Digital Literacy": "#c38cd4"
+  
 };
 
 
 
+var removeLoader = function () {
+  console.log("doc loaded");
+  document.getElementById("loader").style.display = "none";
+  
+};
+
 var skillPointData = "https://teamtreehouse.com/josemorales.json";
 
 // set dimensions
-var width = 700,
-    barHeight = 20;
+var width = 800,
+    barHeight = 30;
 
 // set x scale
 var xScale = d3.scaleLinear()
@@ -26,6 +42,9 @@ var chart = d3.select("#chart")
 // get data
 d3.json(skillPointData, function(error, data) {
        
+  // if we get data we remove the loader image
+  if(data) removeLoader();
+  
   if(error) throw new Error("data not found");
   
   
@@ -37,7 +56,7 @@ d3.json(skillPointData, function(error, data) {
   // iterate over API object and create an array for easier mapping later on.
   for ( var property in data.points) {
 
-    if(property === "total" || property === "Game Development") continue;
+    if(property === "total" || property === "Game Development" || property === "Business") continue;
     
     var item = {
         skillName : property,
@@ -53,8 +72,21 @@ d3.json(skillPointData, function(error, data) {
   }
   
   
+  //sort dataArray from highest points to lowest
+  dataArray.sort(function (a, b) {
+  if (a.points < b.points) {
+    return 1;
+  }
+  if (a.points > b.points) {
+    return -1;
+  }
+  // a must be equal to b
+  return 0;
+});
+  
+  
   // set domain  
-  xScale.domain([0 , d3.max(dataArray, function(d) { return d.points; })]);
+  xScale.domain([0 , d3.max(dataArray, function(d) { return d.points * 1.5; })]); // 1.5 add buffer in domain so that labels fit.
 
   
   // Set chart height dynamically
@@ -74,9 +106,15 @@ d3.json(skillPointData, function(error, data) {
   
   
   bar.append("text")
-      .attr("x", function(d) { return xScale(d.points) - 3; })
+      .attr("x", function(d) { return xScale(d.points) + 2; })
       .attr("y", barHeight / 2)
       .attr("dy", ".35em")
+      .attr("style", "font-size: 11px")
       .text(function(d) { return d.skillName; });
   
 });
+
+
+
+
+
