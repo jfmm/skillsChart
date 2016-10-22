@@ -29,8 +29,10 @@ var removeLoader = function () {
 var skillPointData = "https://teamtreehouse.com/josemorales.json";
 
 // set dimensions
+
 var width = 800,
     barHeight = 30;
+
 
 // set x scale
 var xScale = d3.scaleLinear()
