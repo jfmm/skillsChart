@@ -3,13 +3,25 @@ body {
   font-family: sans-serif;
   letter-spacing: -1;
   transition: 0.4s linear all;
+  padding: 0px 0px 0px 50px;
 }
 
 h1 {
-  font-size: 4em;
+  font-size: 3.5em;
   color: #3e3e3e;
+  margin: 50px 0px 0px;
+  border-bottom: 1px solid #9b9b9b;
+  padding-bottom: 10px;
+  width: 500px;
 }
 
 #loader {
   color: #acacac;
+}
+
+p {
+  font-size: 14px;
+  color: #3e3e3e;
+  line-height: 22px;
+  max-width: 500px;
 }
