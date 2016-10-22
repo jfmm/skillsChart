@@ -70,9 +70,7 @@ d3.json(skillPointData, function(error, data) {
   bar.append("rect")
       .attr("width", function(d) { return xScale(d.points);})
       .attr("height", barHeight - 1)
-      .attr("fill", function(d) {
-    //debugger;
-    return d.setFill(courseColors)}); 
+      .attr("fill", function(d) {return d.setFill(courseColors)}); 
   
   
   bar.append("text")
