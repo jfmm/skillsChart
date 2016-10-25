@@ -41,6 +41,8 @@ var xScale = d3.scaleLinear()
 var chart = d3.select("#chart")
               .attr("width", width);
 
+
+
 // get data
 d3.json(skillPointData, function(error, data) {
        
@@ -49,22 +51,24 @@ d3.json(skillPointData, function(error, data) {
   
   if(error) throw new Error("data not found");
   
-  
+  var totalPoints = data.points.total;
   var dataArray = [];
-
   var dataLength = Object.keys(data.points).length - 1; // -1 because we don't want to graph the "total" property
 
 
   // iterate over API object and create an array for easier mapping later on.
   for ( var property in data.points) {
+    
+    
 
     if(property === "total" || property === "Game Development" || property === "Business") continue;
     
     var item = {
         skillName : property,
         points : data.points[property],
+        percentage: Math.ceil((data.points[property] / totalPoints) * 100),
         setFill : function(colors) {
-       
+      
           return colors[this.skillName];
           
         }
@@ -73,7 +77,7 @@ d3.json(skillPointData, function(error, data) {
     dataArray.push(item);
   }
   
-  
+  console.log(dataArray);
   //sort dataArray from highest points to lowest
   dataArray.sort(function (a, b) {
   if (a.points < b.points) {
@@ -104,8 +108,7 @@ d3.json(skillPointData, function(error, data) {
   bar.append("rect")
       .attr("width", function(d) { return xScale(d.points);})
       .attr("height", barHeight - 1)
-      .attr("fill", function(d) {return d.setFill(courseColors)}); 
-  
+      .attr("fill", function(d) {return d.setFill(courseColors)});
   
   bar.append("text")
       .attr("x", function(d) { return xScale(d.points) + 2; })
@@ -113,6 +116,13 @@ d3.json(skillPointData, function(error, data) {
       .attr("dy", ".35em")
       .attr("style", "font-size: 11px")
       .text(function(d) { return d.skillName; });
+  
+  bar.append("text")
+      .attr("x", function(d) { return xScale(d.points) - 30; })
+      .attr("y", barHeight / 2)
+      .attr("dy", ".35em")
+      .attr("style", "font-size: 11px; fill: #fff")
+      .text(function(d) { return d.percentage + "%"; });
   
 });
 
